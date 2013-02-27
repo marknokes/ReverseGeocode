@@ -18,15 +18,7 @@ Arguments:
 
 Return values ( json ):
 
-* locale_data.street_number
-* locale_data.street
-* locale_data.city
-* locale_data.zip
-* locale_data.state
-* locale_data.state_short
-* locale_data.country
-* locale_data.country_short
-* locale_data.county
+* locale_data.arg_from_above
 * locale_data ( a json object containing all of the above ) ( default )
 
 Required Scripts:
