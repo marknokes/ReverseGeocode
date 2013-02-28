@@ -1,8 +1,11 @@
 var locale_data  = ( function( window, $, undefined ){
 	var getLocation = function(){
 		if (navigator.geolocation){
-			navigator.geolocation.getCurrentPosition(getGoogleData);
+			navigator.geolocation.getCurrentPosition(getGoogleData , geoError , {enableHighAccuracy: true});
 		}
+	};
+	var geoError = function(){
+		// error stuff here
 	};
 	var getGoogleData = function(position){
 		$.ajax({
