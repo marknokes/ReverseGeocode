@@ -9,10 +9,13 @@ var locale_data  = ( function( window, $, undefined ){
 	}
 	var getLocation = function(){
 		if (navigator.geolocation){
-			navigator.geolocation.getCurrentPosition(getGoogleData , geoError , {enableHighAccuracy: true});
+			var geoOptions = {
+				enableHighAccuracy : true
+			}
+			navigator.geolocation.getCurrentPosition(geoSuccess,geoError,geoOptions);
 		}
 	};
-	var getGoogleData = function(position){
+	var geoSuccess = function(position){
 		$.ajax({
 			type: 'POST',
 			url : 'get-location-data.php',
