@@ -1,7 +1,12 @@
 <html>
   <head>
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-		<script src="locate.js"></script>
+		<script src="locate.min.js"></script>
+		<script>
+		if (!sessionStorage.locale){
+			locale_data.get();
+		}
+		</script>
 		<style>
 			body {
 				width: 800px;
@@ -11,7 +16,6 @@
 	</head>
 	<body>
 		<h1>Google Reverse Geocoding</h1>
-		<script>locale_data.get();</script>
-		<p class="json"></p>
+		<script>document.write('<pre>locale = '+JSON.stringify(locale,null,4)+'</pre>')</script>
 	</body>
 </html>

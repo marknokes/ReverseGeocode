@@ -1,11 +1,16 @@
 var locale_data  = ( function( window, $, undefined ){
+	var get = function(args){
+		if ( args == 'undefined' || args == null || args == '' ){
+			data_to_get = 'all';
+		} else {
+			data_to_get = args;
+		}
+		getLocation();
+	}
 	var getLocation = function(){
 		if (navigator.geolocation){
 			navigator.geolocation.getCurrentPosition(getGoogleData , geoError , {enableHighAccuracy: true});
 		}
-	};
-	var geoError = function(){
-		// error stuff here
 	};
 	var getGoogleData = function(position){
 		$.ajax({
@@ -17,28 +22,29 @@ var locale_data  = ( function( window, $, undefined ){
 				retrieve: data_to_get
 			},
 			dataType : 'json',
-			success : function(locale_data){
-				if (locale_data != '0'){
-					// Do something with locale_data or locale_data.data_to_get
-					$('p.json').html('locale_data: '+JSON.stringify(locale_data));
+			success : function(locale_data_response){
+				if (locale_data_response != '0'){
+					sessionStorage.locale = JSON.stringify(locale_data_response);
+					// Success
+					location.reload();
 				} else {
-					$('p.json').html('Sorry, no dice.');
+					sessionStorage.locale = 'undefined';
 				}
 			},
 			error : function(){
-				$('p.json').html('Sorry, no dice');
+				sessionStorage.locale = 'undefined';
 			}
 		});
 	};
-	var get = function(args){
-		if ( args == 'undefined' || args == null || args == '' ){
-			data_to_get = 'all';
-		} else {
-			data_to_get = args;
-		}
-		getLocation();
-	}
+	var geoError = function(){
+		sessionStorage.locale = 'undefined';
+	};
 	return { 
-		get : get 
+		get : get
 	};
 }(window, jQuery));
+if ('undefined' != sessionStorage.locale){
+	var locale = JSON.parse(sessionStorage.locale);
+}
+
+
